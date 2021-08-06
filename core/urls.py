@@ -19,10 +19,14 @@ from django.urls import (
     path,
 )
 
-from core.views import home
+from core.views import (
+    home,
+    login,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("", home, name="home"),
+    path("login", login, name="login"),
 ]
