@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
+    "crispy_forms",
     "accounts",
 ]
 
@@ -144,6 +145,7 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 SOCIALACCOUNT_PROVIDERS = {
     "github": {
@@ -158,3 +160,5 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
