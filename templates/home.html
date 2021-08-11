@@ -1,10 +1,36 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 {% load socialaccount %}
 {% block content %}
-<h1>CRUD app Home</h1>
+{% load crispy_forms_tags %}
+
+<h1>{% block title %} Homepage {% endblock title %}</h1>
+<br>
+<br>
 {% if user.is_authenticated %}
-<p>Welcome {{ user.username }} !!!</p>
+<h2>Welcome {{ user.username }}!!!</h2>
+<br>
+<br>
+<h3>Personal Details</h3>
+{% if user.first_name and user.last_name %}<p>You are <strong>  {{ user.first_name|title }} {{ user.last_name|title }}.</strong></p> {% endif %}
+{% if user.age %} <p>You are <strong> {{ user.age}} </strong></p> {% endif %}
+{% if user.email %} <p>Your email address is: <strong>{{ user.email }}.</strong> </p> {% endif %}
+{% if user.phone_number %} <p>Your phone number is:<strong> {{ user.phone_number }}.</strong></p> {% endif %}
+{% if user.address %} <p>Your address is <strong>{{ user.address }}.</strong></p> {% endif %}
+<br>
+
+
+<br>
+<br>
+{% if user.job_position and user.company %}
+<h2> Professional Information </h2>
+<p>You are working as <strong>{{ user.job_position }} </strong> at <strong>{{ user.company }} </strong>.</p>
+{% endif %}
+
+
+<p></p>
 {% else %}
-<a href="{% provider_login_url 'github' %}">Sign Up with Github</a>
+<a href="{% provider_login_url 'github' %}">Log In with Github</a>
+<p><a href="{% url 'account_login' %}">Log In </a> </p>
+
 {% endif %}
 {% endblock content %}
