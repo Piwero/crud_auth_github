@@ -4,8 +4,8 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    last_name = models.CharField(max_length=50, null=True, blank=True)
     age = models.PositiveIntegerField(null=True, blank=True)
 
     phone_regex = RegexValidator(

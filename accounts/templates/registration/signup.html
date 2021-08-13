@@ -1,0 +1,14 @@
+{% extends "account/base.html" %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>{% block title %} Sign Up Page {% endblock title %}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success" type="submit">Sign Up</button>
+</form>
+<a href="{% provider_login_url 'github' %}">Sign Up with Github</a>
+
+{% endblock content %}
