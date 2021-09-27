@@ -211,7 +211,7 @@ requests-oauthlib = ">=0.3.0"
 
 [[package]]
 name = "django-crispy-forms"
-version = "1.12.0"
+version = "1.13.0"
 description = "Best way to have Django DRY forms"
 category = "main"
 optional = false
@@ -772,7 +772,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "3.7.9"
-content-hash = "384027bfe1cf7bc0055d6ed26761127cfc45bf72390016436e1dca1c025e9341"
+content-hash = "c57501caf03940094d29b0492cc37e22b97459daf491935f8b67e83361065662"
 
 [metadata.files]
 appnope = [
@@ -902,8 +902,8 @@ django-allauth = [
     {file = "django-allauth-0.45.0.tar.gz", hash = "sha256:6d46be0e1480316ccd45476db3aefb39db70e038d2a543112d314b76bb999a4e"},
 ]
 django-crispy-forms = [
-    {file = "django-crispy-forms-1.12.0.tar.gz", hash = "sha256:d196db62ee8b4fc32d1f9583d0e4be1bb17328b662682c1ecb9fb77bbc0fcf77"},
-    {file = "django_crispy_forms-1.12.0-py3-none-any.whl", hash = "sha256:a3320356c84d0cdc631e1ec7b8908aa0117bc2a5f0ab1d053d33eba08f584808"},
+    {file = "django-crispy-forms-1.13.0.tar.gz", hash = "sha256:4dc9e5263c91c5f51766806a050ca2ec5c349d34c5cd91fcca3a1a0363b5e29e"},
+    {file = "django_crispy_forms-1.13.0-py3-none-any.whl", hash = "sha256:9c49d29dd9e98dc2e6e3a8b02670d72deb6edf7bc616986ca412d72c306b36a0"},
 ]
 filelock = [
     {file = "filelock-3.0.12-py3-none-any.whl", hash = "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"},

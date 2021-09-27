@@ -33,7 +33,7 @@ authors = ["Piwero <piwero@gmail.com>"]
 [tool.poetry.dependencies]
 Django = "^3.2.7"
 django-allauth = "^0.45.0"
-django-crispy-forms = "^1.12.0"
+django-crispy-forms = "^1.13.0"
 dj-database-url = "^0.5.0"
 gunicorn = "^20.1.0"
 psycopg2-binary = "^2.9.1"
