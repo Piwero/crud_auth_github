@@ -41,4 +41,4 @@ jobs:
     - name: Test with pytest
       run: |
           source .venv/bin/activate
-      pytest --cov=. -n auto # Run tests with coverage and in parallel
+          pytest --cov=. -n auto # Run tests with coverage and in parallel
