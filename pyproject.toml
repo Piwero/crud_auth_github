@@ -30,12 +30,11 @@ pytest-xdist = "^3.2.1"
 ruff = "^0.0.272"
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "test.settings"
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 
 [tool.ruff]
 select = ["E","F","I"]
-ignore = []
+ignore = ["E501",]
 exclude = [
     ".bzr",
     ".direnv",
