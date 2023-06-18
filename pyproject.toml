@@ -25,8 +25,42 @@ isort = "^5.12.0"
 pre-commit = "^3.2.2"
 pytest = "^7.3.1"
 pytest-cov = "^4.0.0"
+pytest-django = "^4.5.2"
 pytest-xdist = "^3.2.1"
 ruff = "^0.0.272"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "test.settings"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+
+[tool.ruff]
+select = ["E","F","I"]
+ignore = []
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "**/migrations",
+    "settings.py"
+	]
+line-length = 88
 
 [build-system]
 requires = ["poetry-core"]
