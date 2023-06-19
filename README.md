@@ -48,6 +48,23 @@ GH_CLIENT_SECRET="###"
 
 
 ``` 
+
+To begin with the application, in your GitHub account. Follow these steps:
+
+1. Go to your profile and click on "Settings."
+2. Scroll down and select "Developer Settings" from the left-hand side menu.
+3. Choose "OAuth Apps."
+4. Click on "Register a new application."
+5. Fill in the following details:
+   - Application Name: test
+   - Homepage URL: http://localhost:8000
+   - Authorization callback URL: http://localhost:8000/social-auth/complete/github/
+6. Click "Register Application."
+7. Generate the client secret code.
+8. Copy the client ID and client secret, then paste them here:
+   SOCIAL_AUTH_GITHUB_KEY = '############'
+   SOCIAL_AUTH_GITHUB_SECRET = '########################'
+
 Secrets are hidden in order to preserve the security of the project, ask the author for this information.
 
 ### Run migrations to create models in a SQL DB.
