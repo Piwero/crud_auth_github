@@ -41,6 +41,7 @@ jobs:
     - name: Test with pytest
       env:
         SECRET_KEY:  ${{ secrets.SECRET_KEY }}
+        DEBUG:  ${{ secrets.DEBUG }}
       run: |
         echo SECRET_KEY
         source .venv/bin/activate
