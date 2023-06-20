@@ -39,6 +39,8 @@ jobs:
         black .
 
     - name: Test with pytest
+      env: |
+        SECRET_KEY = {{ secrets.SECRET_KEY }}
       run: |
           source .venv/bin/activate
           pytest --cov=. -n auto # Run tests with coverage and in parallel
