@@ -10,5 +10,6 @@ migrate:
 createsuperuser:
 	docker compose exec -it $(APP_CONTAINER_NAME) python manage.py createsuperuser
 
+
 clean-pers-data:
 	rm -rf ./data/db

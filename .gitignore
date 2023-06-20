@@ -284,3 +284,5 @@ fabric.properties
 
 # postgres
 data/db/
+
+local.py
