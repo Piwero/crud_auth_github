@@ -45,6 +45,6 @@ jobs:
         GH_CLIENT_ID: "###"
         GH_CLIENT_SECRET: "###"
       run: |
-        echo SECRET_KEY
         source .venv/bin/activate
+        python manage.py collectstatic
         pytest --cov=. -n auto # Run tests with coverage and in parallel
