@@ -43,5 +43,3 @@ RUN poetry config virtualenvs.create false \
 
 # copy application code to WORKDIR
 COPY . .
-CMD python manage.py collectstatic
-CMD python manage.py migrate
