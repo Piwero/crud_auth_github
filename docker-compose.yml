@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  log-public-ip-docker-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: crud-auth-github
+    volumes:
+      - .:/app
