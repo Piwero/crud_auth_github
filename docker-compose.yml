@@ -1,6 +1,15 @@
 version: '3'
 services:
-  crud-auth-github-service:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=crud-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  crud-auth-github:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     container_name: crud-auth-github
@@ -14,12 +23,3 @@ services:
       - 8000:8000
     depends_on:
       - db
-
-  db:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=crud-db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
