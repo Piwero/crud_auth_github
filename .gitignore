@@ -285,4 +285,3 @@ fabric.properties
 # postgres
 data/db/
 
-**/settings_local.py
