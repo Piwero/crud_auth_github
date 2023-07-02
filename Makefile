@@ -10,5 +10,8 @@ createsuperuser:
 	docker compose exec -it $(APP_CONTAINER_NAME) python manage.py createsuperuser
 test:
 	docker compose exec -it $(APP_CONTAINER_NAME) pytest
+shell:
+	docker compose exec -it $(APP_CONTAINER_NAME) python manage.py shell_plus
+
 clean-pers-data:
 	rm -rf ./data/db
