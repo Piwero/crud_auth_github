@@ -69,20 +69,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",  # set in docker-compose.yml
-        "PORT": 5432,  # default postgres port
-    }
-}
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
