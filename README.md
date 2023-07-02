@@ -1,5 +1,4 @@
 # CRUD app with Github authentication 
-https://crud-app-github.herokuapp.com/
 
 ## Getting started:
 
