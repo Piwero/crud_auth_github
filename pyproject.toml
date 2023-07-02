@@ -1,54 +1,69 @@
-[tool.black]
-line-length = 88
-exclude = '''
-/(
-  | migrations
-  | .venv
-)/
-'''
-
-[tool.flake8]
-ignore = ["F405", "E501", "W503", "E731", "E741",]
-max-line-length = 88
-exclude = [
-    ".git", "migrations", "node_modules", "docs", ".venv", "frontend"
-]
-statistics = false
-
-[tool.isort]
-line_length = 88
-skip_glob = "*/migrations/.py"
-multi_line_output = 3
-profile = "black"
-filter_files = true
-include_trailing_comma = true
-force_grid_wrap = 2
-
 [tool.poetry]
-name = "Django core project"
-version = "0.1.0"
+name = "crud-auth-github"
+version = "2"
 description = ""
-authors = ["Piwero <piwero@gmail.com>"]
+authors = ["piwero <piwero@gmail.com>"]
+readme = "README.md"
+
 
 [tool.poetry.dependencies]
+asgiref = "^3.7.2"
 Django = "^3.2.14"
 django-allauth = "^0.54.0"
 django-crispy-forms = "^1.14.0"
 dj-database-url = "^2.0.0"
 gunicorn = "^20.1.0"
 psycopg2-binary = "^2.9.3"
-python = "3.7.9"
+python = "^3.10"
 python-decouple = "^3.6"
+sqlparse = "^0.4.4"
 whitenoise = "^6.2.0"
 
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+mypy = "^1.2.0"
+ipdb = "^0.13.13"
+isort = "^5.12.0"
+pre-commit = "^3.2.2"
+pytest = "^7.3.1"
+pytest-cov = "^4.0.0"
+pytest-django = "^4.5.2"
+pytest-xdist = "^3.2.1"
+ruff = "^0.0.272"
 
-[tool.poetry.dev-dependencies]
-black = "^23.3"
-ipdb = "^0.13.9"
-isort = "^5.10.1"
-flake9 = "3.8.3.post2"
-pre-commit = "^2.19.0"
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "core.settings.test_settings"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+
+[tool.ruff]
+select = ["E","F","I"]
+ignore = ["E501",]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "**/migrations",
+    "settings.py"
+	]
+line-length = 88
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
