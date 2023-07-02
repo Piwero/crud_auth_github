@@ -10,15 +10,15 @@ services:
       - 8000:8000
     depends_on:
       - db
+    environment:
+      - GH_CLIENT_ID=${GH_CLIENT_ID}
+      - GH_CLIENT_SECRET=${GH_CLIENT_SECRET}
   db:
     image: postgres
     container_name: postgres_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-#      - POSTGRES_NAME=crud_auth_db
-#      - POSTGRES_USER=crud_auth_user
-#      - POSTGRES_PASSWORD=password
       - "POSTGRES_HOST_AUTH_METHOD=trust"
     ports:
       - 15432:5432
