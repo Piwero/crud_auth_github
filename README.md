@@ -57,10 +57,10 @@ To begin with the application, in your GitHub account. Follow these steps:
 5. Fill in the following details:
    - Application Name: test
    - Homepage URL: http://localhost:8000
-   - Authorization callback URL: http://localhost:8000/social-auth/complete/github/
+   - Authorization callback URL: http://localhost:8000/accounts/github/login/callback/
 6. Click "Register Application."
 7. Generate the client secret code.
-8. Copy the client ID and client secret, then paste them here:
+8. Copy the client ID and client secret, then paste them here (.env file or GH secrets):
    SOCIAL_AUTH_GITHUB_KEY = '############'
    SOCIAL_AUTH_GITHUB_SECRET = '########################'
 
