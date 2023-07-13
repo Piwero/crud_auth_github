@@ -1,6 +1,7 @@
 APP_CONTAINER_NAME = "crud-auth-github"
 
-## Docker
+# Docker
+## Main app
 .PHONY: exec-bash
 exec-bash:
 	docker exec -it $(APP_CONTAINER_NAME) bash ${ARGS}
@@ -15,3 +16,7 @@ shell:
 
 clean-pers-data:
 	rm -rf ./data/db
+
+## DB
+exec-db:
+	docker exec -it postgres_db psql -U postgres
