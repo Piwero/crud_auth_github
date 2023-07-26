@@ -9,6 +9,8 @@ migrate:
 	docker compose exec -it $(APP_CONTAINER_NAME) python manage.py migrate
 createsuperuser:
 	docker compose exec -it $(APP_CONTAINER_NAME) python manage.py createsuperuser
+collectstatic:
+		docker compose exec -it $(APP_CONTAINER_NAME) python manage.py collectstatic
 test:
 	docker compose exec -it $(APP_CONTAINER_NAME) pytest
 shell:
