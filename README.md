@@ -66,6 +66,8 @@ To begin with the application, in your GitHub account. Follow these steps:
 
 Secrets are hidden in order to preserve the security of the project, ask the author for this information.
 
+# Local Setup
+
 ### Run migrations to create models in a SQL DB.
 ```commandline
 python manage.py migrate
