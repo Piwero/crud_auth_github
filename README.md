@@ -111,5 +111,5 @@ python manage.py runserver
 python manage.py test
 ```
 # Urls
-[Home](http://localhost:8000)
-[Admin](http://localhost:8000/admin)
+- [Home](http://localhost:8000)
+- [Admin](http://localhost:8000/admin)
