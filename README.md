@@ -66,7 +66,27 @@ To begin with the application, in your GitHub account. Follow these steps:
 
 Secrets are hidden in order to preserve the security of the project, ask the author for this information.
 
-# Local Setup
+# Option 1 - Docker Compose Setup
+
+### Build containers
+```commandline
+docker compose up -d
+```
+## Only first time
+### Run migrations
+```commandline
+make migrate
+```
+### Create user
+```commandline
+make createsuperuser
+```
+### Collect Static (if not showing logo on lading page)
+```commandline
+make collectstatic
+```
+
+# Option 2 - Local Setup
 
 ### Run migrations to create models in a SQL DB.
 ```commandline
@@ -90,3 +110,6 @@ python manage.py runserver
 ```commandline
 python manage.py test
 ```
+# Urls
+[Home](http://localhost:8000)
+[Admin](http://localhost:8000/admin)
