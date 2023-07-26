@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud-auth-github-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crud-auth-github
+  template:
+    metadata:
+      labels:
+        app: crud-auth-github
+    spec:
+      containers:
+      - name: crud-auth-github
+        image: crud_auth_github-crud-auth-github:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: GH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: github-secrets
+              key: GH_CLIENT_ID
+        - name: GH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: github-secrets
+              key: GH_CLIENT_SECRET
+      volumes:
+      - name: app-volume
+        emptyDir: {}
+
