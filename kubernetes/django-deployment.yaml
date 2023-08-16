@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: crud-auth-github
-        image: crud_auth_github-crud-auth-github:latest
+        image: piwero/crud_auth_github-crud-auth-github:latest
         imagePullPolicy: IfNotPresent
         ports:
             - name: http
