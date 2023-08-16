@@ -7,6 +7,6 @@ spec:
     app: crud-auth-github
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 80
+      targetPort: 9898
 
