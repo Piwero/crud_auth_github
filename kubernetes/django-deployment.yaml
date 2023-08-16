@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: crud-auth-github-deployment
+  namespace: crud-app
 spec:
   replicas: 1
   selector:
@@ -15,8 +16,17 @@ spec:
       containers:
       - name: crud-auth-github
         image: crud_auth_github-crud-auth-github:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8000
+            - name: http
+              containerPort: 9898
+              protocol: TCP
+            - name: http-metrics
+              containerPort: 9797
+              protocol: TCP
+            - name: grpc
+              containerPort: 9999
+              protocol: TCP
         env:
         - name: GH_CLIENT_ID
           valueFrom:
