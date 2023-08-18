@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     tunnel: cf-tunnel
-  name: cf-tunnel
+  name: cf-tunnel-deployment
   namespace: cloudflare
 spec:
   replicas: 2
@@ -29,10 +29,15 @@ spec:
             - --protocol
             - http2
             - --token
-            - #Your tunnel token here
+            - $(CLOUDFLARE_TOKEN)
           env:
             - name: TZ
               value: UTC
+            - name: CLOUDFLARE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-secrets
+                  key: TUNNEL_TOKEN
           image: cloudflare/cloudflared:latest # you might want to pin this to a version
           imagePullPolicy: Always
           livenessProbe:
