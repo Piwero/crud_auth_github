@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crud-auth-github-deployment
+  name: crud-auth-github
   namespace: crud-app
 spec:
   replicas: 1
