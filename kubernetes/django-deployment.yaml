@@ -17,6 +17,14 @@ spec:
       - name: crud-auth-github
         image: piwero/crud_auth_github-crud-auth-github:latest
         imagePullPolicy: IfNotPresent
+        command:
+          - "sh"
+          - "-c"
+          - | 
+            echo "Start container"
+            echo $(GH_CLIENT_ID)
+            python manage.py migrate
+            python manage.py runserver
         ports:
             - name: http
               containerPort: 9898
