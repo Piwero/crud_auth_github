@@ -9,6 +9,8 @@ spec:
     app: crud-auth-github
   ports:
     - protocol: TCP
+      nodePort: 30001
       port: 8000
       targetPort: 8000
+
 
