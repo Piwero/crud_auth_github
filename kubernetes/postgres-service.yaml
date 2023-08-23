@@ -4,10 +4,11 @@ metadata:
   name: postgres-db-service
   namespace: crud-app
 spec:
+  type: ClusterIP
   selector:
     app: postgres-db
   ports:
     - protocol: TCP
       port: 5432
-      targetPort: 5432
+#      targetPort: 5432
 

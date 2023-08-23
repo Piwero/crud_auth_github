@@ -9,11 +9,11 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - db
+      - postgres-db-service
     environment:
       - GH_CLIENT_ID=${GH_CLIENT_ID}
       - GH_CLIENT_SECRET=${GH_CLIENT_SECRET}
-  db:
+  postgres-db-service:
     image: postgres
     container_name: postgres_db
     volumes:
