@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crud-app-config
+  namespace: crud-app
+data:
+  DEBUG: "True"
