@@ -1,29 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-db-deployment
+  name: postgres
   namespace: crud-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-db
+      app: postgres-container
   template:
     metadata:
       labels:
-        app: postgres-db
+        app: postgres-container
+        tier: backend
     spec:
       containers:
-      - name: postgres-db
-        image: postgres:latest
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_HOST_AUTH_METHOD
-          value: "trust"
-        volumeMounts:
-        - name: postgres-data
-          mountPath: /var/lib/postgresql/data
+        - name: postgres-container
+          image: postgres:13
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/postgresql/data
+
       volumes:
-      - name: postgres-data
-        emptyDir: {}
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: postgres-pvc
