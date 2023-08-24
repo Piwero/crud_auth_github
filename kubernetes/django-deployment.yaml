@@ -15,14 +15,13 @@ spec:
     spec:
       containers:
       - name: crud-auth-github
-        image: piwero/crud_auth_github-crud-auth-github:latest
-        imagePullPolicy: IfNotPresent
+        image: piwero/crud_auth_github:latest
+        imagePullPolicy: Always
         command:
           - "sh"
           - "-c"
           - | 
-            echo "Start container"
-            echo $(GH_CLIENT_ID)
+            echo "Start crud-auth-github container"
             python manage.py migrate
             python manage.py runserver
         ports:
@@ -43,6 +42,8 @@ spec:
             secretKeyRef:
               name: django-secrets
               key: GH_CLIENT_SECRET
+        - name: POSTGRES_HOST
+          value: "postgres-db-service"
       volumes:
       - name: app-volume
         emptyDir: {}
