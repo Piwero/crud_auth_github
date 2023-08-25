@@ -7,36 +7,44 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-container
+      name: postgres
   template:
     metadata:
       labels:
-        app: postgres-container
-        tier: backend
+        name: postgres
     spec:
       containers:
-        - name: postgres-container
-          image: postgres:13
-          env:
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-credentials
-                  key: user
-
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-credentials
-                  key: password
-
+        - name: postgres
+          image: postgres:10.3
           ports:
             - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+            - name: POSTGRES_DB
+              value: "crud-db"
           volumeMounts:
-            - name: postgres-volume-mount
-              mountPath: /var/lib/postgresql/data
-
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-volume-mount
       volumes:
         - name: postgres-volume-mount
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: postgres-pv-claim
+---
+# START Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: crud-app
+  labels:
+    app: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    name: postgres
+# END SERVICE
