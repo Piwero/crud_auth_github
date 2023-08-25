@@ -2,6 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: postgres-pv
+  namespace: crud-app
   labels:
     type: local
 spec:
@@ -16,9 +17,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim #claim a portion of persistent volume
 metadata:
+  name: postgres-pv-claim
+  namespace: crud-app
   labels:
     app: postgres
-  name: postgres-pv-claim
 spec:
   storageClassName: manual
   accessModes:
