@@ -121,7 +121,7 @@ python manage.py test
 ```commandline
 kubect apply -f kubernetes/app/
 kubectl -n crud-app create secret generic django-secrets --from-literal=SECRET_KEY="your_django_key" --from-literal=GH_CLIENT_ID="your_github_client_id" --from-literal=GH_CLIENT_SECRET="your-github_client_secret"
-
+# change match route from kubernetes/app/django/ingress-route.yaml
 kubect apply -f kubernetes/app/postgres
 kubect apply -f kubernetes/app/django
 ```
@@ -129,6 +129,5 @@ kubect apply -f kubernetes/app/django
 ## Create cloudflare tunnel
 ```commandline
 kubectl -n cloudflare create secret generic cloudflare-secrets --from-literal=TUNNEL_TOKEN="your_cloudflare_tunnel_token" 
-
 kubectl apply -f cloudflare
 ```
