@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    tunnel: cf-tunnel
+  name: cf-tunnel-deployment
+  namespace: cloudflare
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tunnel: cf-tunnel
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        tunnel: cf-tunnel
+    spec:
+      containers:
+        - args:
+            - tunnel
+            - --no-autoupdate
+            - --metrics
+            - 0.0.0.0:8081
+            - run
+            - --protocol
+            - http2
+            - --token
+            - $(CLOUDFLARE_TOKEN)
+          env:
+            - name: TZ
+              value: UTC
+            - name: CLOUDFLARE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-secrets
+                  key: TUNNEL_TOKEN
+          image: cloudflare/cloudflared:latest # you might want to pin this to a version
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          name: tunnel
+          ports:
+            - containerPort: 8081
+              name: http-metrics

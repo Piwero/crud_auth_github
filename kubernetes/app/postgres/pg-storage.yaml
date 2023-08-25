@@ -1,0 +1,30 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-pv
+  namespace: crud-app
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100M # total capacity for this persistent volume
+  accessModes:
+    - ReadWriteOnce
+  hostPath: # where pesistent volume is created on the kubernetes node (needs to be /data for minikube)
+    path: "/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim #claim a portion of persistent volume
+metadata:
+  name: postgres-pv-claim
+  namespace: crud-app
+  labels:
+    app: postgres
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce # mount as read-write by a single node
+  resources:
+    requests:
+      storage: 100M # storage capacity consumed from the persistent volume

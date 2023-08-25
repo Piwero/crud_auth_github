@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: crud-auth-github-ingress
+  namespace: crud-app
+  annotations:
+    ingress.kubernetes.io/protocol: http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`crud.my-domain.com`)
+      kind: Rule
+      middlewares: [ ]
+      services:
+        - kind: Service
+          name: crud-auth-github-service
+          namespace: crud-app
+          port: 80
+

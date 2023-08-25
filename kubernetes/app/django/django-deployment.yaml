@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud-auth-github
+  namespace: crud-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crud-auth-github
+  template:
+    metadata:
+      labels:
+        app: crud-auth-github
+    spec:
+      containers:
+      - name: crud-auth-github
+        image: piwero/crud_auth_github:latest
+        imagePullPolicy: Always
+        command:
+          - "sh"
+          - "-c"
+          - | 
+            echo "Start crud-auth-github container"
+            python manage.py migrate
+            python manage.py runserver
+        ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+            - name: http-metrics
+              containerPort: 9797
+              protocol: TCP
+        env:
+        - name: GH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: GH_CLIENT_ID
+        - name: GH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: GH_CLIENT_SECRET
+        - name: POSTGRES_HOST
+          value: "postgres-db-service"
+      volumes:
+      - name: app-volume
+        emptyDir: {}
+
