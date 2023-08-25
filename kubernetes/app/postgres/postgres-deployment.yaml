@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:10.3
+          image: postgres:12
           ports:
             - containerPort: 5432
           env:
@@ -26,18 +26,17 @@ spec:
             - name: POSTGRES_DB
               value: "crud-db"
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgres/data
               name: postgres-volume-mount
       volumes:
         - name: postgres-volume-mount
           persistentVolumeClaim:
             claimName: postgres-pv-claim
 ---
-# START Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: postgres-db-service
   namespace: crud-app
   labels:
     app: postgres
@@ -47,4 +46,3 @@ spec:
     - port: 5432
   selector:
     name: postgres
-# END SERVICE
