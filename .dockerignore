@@ -1,0 +1,11 @@
+# CI/CD
+.github
+.idea
+.gitignore
+
+# Docker
+Dockerfile
+
+# Others
+.git
+.env
