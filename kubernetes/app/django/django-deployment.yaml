@@ -47,6 +47,11 @@ spec:
             secretKeyRef:
               name: django-secrets
               key: SECRET_KEY
+        - name: DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: crud-app-config
+              key: DEBUG
         - name: POSTGRES_HOST
           value: "postgres-db-service"
       volumes:
