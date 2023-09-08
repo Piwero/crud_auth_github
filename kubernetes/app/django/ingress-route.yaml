@@ -16,5 +16,5 @@ spec:
         - kind: Service
           name: crud-auth-github-service
           namespace: crud-app
-          port: 80
+          port: 8000
 
