@@ -42,6 +42,11 @@ spec:
             secretKeyRef:
               name: django-secrets
               key: GH_CLIENT_SECRET
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: SECRET_KEY
         - name: POSTGRES_HOST
           value: "postgres-db-service"
       volumes:
