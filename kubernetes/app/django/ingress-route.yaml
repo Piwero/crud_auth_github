@@ -9,7 +9,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   routes:
-    - match: Host(`crud.my-domain.com`)
+    - match: Host(`crud.octovine.com`) # Update this with your own domain
       kind: Rule
       middlewares: [ ]
       services:
