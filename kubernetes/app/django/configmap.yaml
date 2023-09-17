@@ -4,4 +4,4 @@ metadata:
   name: crud-app-config
   namespace: crud-app
 data:
-  DEBUG: "True"
+  DEBUG: "False"
