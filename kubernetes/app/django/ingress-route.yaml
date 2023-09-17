@@ -5,9 +5,9 @@ metadata:
   namespace: crud-app
   annotations:
     ingress.kubernetes.io/protocol: http
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  entryPoints:
-    - web
   routes:
     - match: Host(`crud.my-domain.com`)
       kind: Rule
