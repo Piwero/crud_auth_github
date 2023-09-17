@@ -4,7 +4,7 @@ metadata:
   name: crud-auth-github-service
   namespace: crud-app
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: crud-auth-github
   ports:
