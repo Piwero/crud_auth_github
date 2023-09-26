@@ -1,37 +1,38 @@
-[tool.poetry]
+[project]
 name = "crud-auth-github"
 version = "2"
 description = ""
-authors = ["piwero <piwero@gmail.com>"]
+authors = [{name="piwero"}]
 readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "asgiref>=3.7.2",
+    "Django>=4.0.0",
+    "django-allauth>=0.54.0",
+    "django-crispy-forms>=1.14.0",
+    "dj-database-url>=2.0.0",
+    "gunicorn>=21.0.0",
+    "psycopg2-binary>=2.9.3",
+    "python-decouple>=3.6",
+    "sqlparse>=0.4.4",
+    "whitenoise>=6.2.0"
+]
 
-
-[tool.poetry.dependencies]
-asgiref = "^3.7.2"
-Django = "^4.0.0"
-django-allauth = "^0.54.0"
-django-crispy-forms = "^1.14.0"
-dj-database-url = "^2.0.0"
-gunicorn = "^21.0.0"
-psycopg2-binary = "^2.9.3"
-python = "^3.10"
-python-decouple = "^3.6"
-sqlparse = "^0.4.4"
-whitenoise = "^6.2.0"
-
-[tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
-django-debug-toolbar = "^4.1.0"
-django-extensions = "^3.2.3"
-mypy = "^1.2.0"
-ipdb = "^0.13.13"
-isort = "^5.12.0"
-pre-commit = "^3.2.2"
-pytest = "^7.3.1"
-pytest-cov = "^4.0.0"
-pytest-django = "^4.5.2"
-pytest-xdist = "^3.2.1"
-ruff = "^0.0.291"
+[project.optional-dependencies]
+dev = [
+    "black>=23.3.0",
+    "django-debug-toolbar>=4.1.0",
+    "django-extensions>=3.2.3",
+    "mypy>=1.2.0",
+    "ipdb>=0.13.13",
+    "isort>=5.12.0",
+    "pre-commit>=3.2.2",
+    "pytest>=7.3.1",
+    "pytest-cov>=4.0.0",
+    "pytest-django>=4.5.2",
+    "pytest-xdist>=3.2.1",
+    "ruff>=0.0.291"
+]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "core.settings.test_settings"
@@ -67,5 +68,5 @@ exclude = [
 line-length = 88
 
 [build-system]
-requires = ["setuptools>=40.8.0", "wheel"]
-build-backend = "setuptools.build_meta:__legacy__"
+requires = ["setuptools>=63.0"]
+build-backend = "setuptools.build_meta"
