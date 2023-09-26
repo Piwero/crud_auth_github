@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: crud-auth-github
-        image: piwero/crud_auth_github:3.0
+        image: piwero/crud_auth_github:2.0
         imagePullPolicy: Always
         command:
           - "sh"
