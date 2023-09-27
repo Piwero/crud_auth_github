@@ -30,7 +30,6 @@ jobs:
 
     - name: Run linters
       run: |
-        source .venv/bin/activate
         ruff .
         black .
 
@@ -41,6 +40,5 @@ jobs:
         GH_CLIENT_ID: "###"
         GH_CLIENT_SECRET: "###"
       run: |
-        source .venv/bin/activate
         python manage.py collectstatic
         pytest --cov=. -n auto # Run tests with coverage and in parallel
