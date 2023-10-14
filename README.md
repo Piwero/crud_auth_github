@@ -117,17 +117,39 @@ python manage.py test
 # option 3 - K8s Setup
 
 
-## Deploy app
+## option 3A deploy app passing secrets
 ```commandline
 kubectl apply -f kubernetes/app/
 kubectl -n crud-app create secret generic django-secrets --from-literal=SECRET_KEY="your_django_key" --from-literal=GH_CLIENT_ID="your_github_client_id" --from-literal=GH_CLIENT_SECRET="your-github_client_secret"
-# change match route from kubernetes/app/django/ingress-route.yaml
-kubectl apply -f kubernetes/app/postgres
+```
+Change match route from kubernetes/app/django/ingress-route.yaml
+```commandline
+kubectl apply -f kubernetes/app/Postgres
 kubectl apply -f kubernetes/app/django
 ```
 
-## Create cloudflare tunnel
+## option 3B - Self hosted with K3s
+### Install K3s (Very lightweight for small projects)
+`sudo k3s kubectl get nodes`
+`sudo k3s kubectl get pods -A`
+and check pods health
+
+### Create tunnel
+Create tunnel on cloudflare and get token. 
+Use http and `kubectl get services -A` to get namespace add on cloudflare on Public hostname `namespace.name` like `HTTP://kube-system.traefik` 
+
+Create cloudflared/traefik tunnel
+```
+kubectl apply -f kubernetes/cloudlfare/namespace.yaml 
+kubectl apply -f kubernetes/cloudlfare/deployment.yaml
+```
+
+Pass cloudflare tunnel token as secret
+#### Opcion A - Pass secrets directly
 ```commandline
 kubectl -n cloudflare create secret generic cloudflare-secrets --from-literal=TUNNEL_TOKEN="your_cloudflare_tunnel_token" 
-kubectl apply -f cloudflare
+kubectl apply -f kubernetes/cloudflare
 ```
+
+#### Opcion B - Use external secrets
+
