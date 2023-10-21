@@ -35,17 +35,17 @@ spec:
         - name: GH_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: django-secrets
+              name: gcp-secret-manager
               key: GH_CLIENT_ID
         - name: GH_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: django-secrets
+              name: gcp-secret-manager
               key: GH_CLIENT_SECRET
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
-              name: django-secrets
+              name: gcp-secret-manager
               key: SECRET_KEY
         - name: DEBUG
           valueFrom:
