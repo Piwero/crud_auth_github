@@ -6,7 +6,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: manual
+  storageClassName: local-path
   capacity:
     storage: 100M # total capacity for this persistent volume
   accessModes:
@@ -22,7 +22,7 @@ metadata:
   labels:
     app: postgres
 spec:
-  storageClassName: manual
+  storageClassName: local-path
   accessModes:
     - ReadWriteOnce # mount as read-write by a single node
   resources:
