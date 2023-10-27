@@ -153,3 +153,140 @@ kubectl apply -f kubernetes/cloudflare
 
 #### Opcion B - Use external secrets
 
+# Instructions
+
+
+### 1. Install requirements
+
+### gcloud-cli
+
+ https://cloud.google.com/sdk/docs/install#installation_instructions
+
+or https://stackoverflow.com/questions/23247943/trouble-installing-google-cloud-sdk-in-ubuntu
+
+### Kustomize
+
+`brew install kustomize`
+
+### Helm
+
+https://helm.sh/docs/intro/install/
+
+### 2. Login
+
+`gcloud auth login`
+
+### 3. Define common variables
+
+This is optional but helps to avoid typos
+
+Copy values from `kubernetes/external-secrets/.env`
+
+```bash
+PROJECT=my-project-name #piwero-secrets
+SA_NAME=gke-service-account-dev #Service Account to be created
+```
+
+### 4. Create a GCP service account
+
+```bash
+gcloud iam service-accounts create ${SA_NAME} --project ${PROJECT} --display-name="Service account for GKE"
+
+gcloud projects add-iam-policy-binding ${PROJECT} \
+    --member="serviceAccount:${SA_NAME}@${PROJECT}.iam.gserviceaccount.com" \
+    --project ${PROJECT} \
+    --role="roles/secretmanager.secretAccessor"
+```
+
+### 5. Generate GCP Service account secret in kubernetes
+
+```bash
+KEY_FILE=gcp-creds.json
+SA=${SA_NAME}@${PROJECT}.iam.gserviceaccount.com
+SECRET=gcp-secret-manager
+NS=external-secrets
+
+kubectl create namespace ${NS}
+
+# Create service account secret
+gcloud iam service-accounts keys create ${KEY_FILE} --iam-account=${SA}
+kubectl delete secret ${SECRET} -n ${NS}
+kubectl create secret generic ${SECRET} --from-file=${KEY_FILE}=${KEY_FILE} -n ${NS}
+
+# Remove creds.json file
+rm ${KEY_FILE}
+```
+
+### 6. Create vault in GCP
+
+```bash
+VAULT_NAME=test_vault
+gcloud secrets --project ${PROJECT} create ${VAULT_NAME} --replication-policy="automatic"
+
+```
+
+### 7. Add secrets (json format) to vault
+
+The next step will create version 1 of secrets the first time, and will create a new version every time this is run, so we can use different version of secrets on different environments
+
+```bash
+cat << EOF | gcloud secrets --project ${PROJECT} versions add ${VAULT_NAME} --data-file=-
+{
+
+  "SECRET_KEY": "XXXX",
+  "GH_CLIENT_ID": "XXX",
+  "GH_CLIENT_SECRET": "XXX",
+}
+EOF
+```
+
+## Use of secrets
+
+### 8.  Install kustomize in your mac
+
+`brew install kustomize`
+
+### 9. Copy folder of components
+
+`k8s/apps/base/system/external-secrets`
+
+### 10. Edit your project id
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: gcp-secret-store
+spec:
+  provider:
+    gcpsm:
+      projectID: ${PROJECT} # This is the GCP project that Secret Manager is used
+      auth:
+        secretRef:
+          secretAccessKeySecretRef:
+            namespace: external-secrets           # Namespace of Secret contains GCP service account
+            name: gcp-secret-manager    # Name of the K8s Secret you want
+            key: gcp-creds.json  
+```
+
+### 11.  Inject secrets to app deployment
+
+```yaml
+spec:
+      containers:
+      - name: xxx
+        image: xxx
+        imagePullPolicy: Always
+			env:
+        - name: GH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: gcp-secret-manager
+              key: GH_CLIENT_ID
+```
+
+### 13.  Apply overall external secrets
+
+```bash
+kubectl kustomize kubernetes/external-secrets/. --enable-helm | kubectl apply -f -
+```
