@@ -35,13 +35,16 @@ pytest-django = "^4.12.0"
 pytest-xdist = "^3.8.0"
 ruff = "^0.16.0"
 
+[tool.isort]
+profile = "black"
+line_length = 88
+skip_glob = ["**/migrations/*", "*/settings.py"]
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "core.settings.test_settings"
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 
 [tool.ruff]
-select = ["E","F","I"]
-ignore = ["E501",]
 exclude = [
     ".bzr",
     ".direnv",
@@ -67,6 +70,11 @@ exclude = [
     "settings.py"
 	]
 line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
