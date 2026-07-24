@@ -21,14 +21,14 @@ jobs:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
     - uses: actions/setup-python@v5
       with:
-        python-version: "3.11"
+        python-version: "3.12"
     - uses: Gr1N/setup-poetry@v9
     - run: poetry --version
     
     - name: Install dependencies
       run: |
         poetry config virtualenvs.in-project true
-        poetry env use 3.11
+        poetry env use 3.12
         poetry env info
         poetry install
 

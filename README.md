@@ -11,9 +11,11 @@ This app allows user to create, read, update and delete personal and professiona
 ---
 In order to run this project, clone this repository on you local. Then, follow the following steps:
 
+This project targets **Python 3.12**.
+
 ### Create and activate virtualenv
 ```commandline
-virtualenv .venv -p python3
+python3.12 -m venv .venv
 . .venv/bin/activate
 ```
 
