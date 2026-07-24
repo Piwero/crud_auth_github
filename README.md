@@ -215,7 +215,9 @@ python manage.py shell
 
 ```python
 # In your code
-import ipdb; ipdb.set_trace()
+import ipdb
+
+ipdb.set_trace()
 ```
 
 Then interact with the debugger in your terminal.
