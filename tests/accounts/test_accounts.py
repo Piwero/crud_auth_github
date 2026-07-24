@@ -6,40 +6,40 @@ from accounts.models import CustomUser
 
 
 class LoginAccountsTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.response = self.client.get("/accounts/login/")
 
-    def test_login_status_code(self):
+    def test_login_status_code(self) -> None:
         self.assertEqual(self.response.status_code, 200)
 
-    def test_login_template(self):
+    def test_login_template(self) -> None:
         self.assertTemplateUsed(self.response, "account/login.html")
 
-    def test_login_contains_html(self):
+    def test_login_contains_html(self) -> None:
         self.assertContains(self.response, "Sign In")
 
-    def test_login_no_contains_html(self):
+    def test_login_no_contains_html(self) -> None:
         self.assertNotContains(self.response, "Sign up")
 
 
 class SignupAccountsTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.response = self.client.get("/accounts/signup/")
 
-    def test_signup_status_code(self):
+    def test_signup_status_code(self) -> None:
         self.assertEqual(self.response.status_code, 200)
 
-    def test_signup_template(self):
+    def test_signup_template(self) -> None:
         self.assertTemplateUsed(self.response, "registration/signup.html")
 
-    def test_signup_contains_html(self):
+    def test_signup_contains_html(self) -> None:
         self.assertContains(self.response, "Sign Up")
 
-    def test_signup_no_contains_html(self):
+    def test_signup_no_contains_html(self) -> None:
         self.assertNotContains(self.response, "Homepage")
 
-    def test_signup_model(self):
-        new_user_test = CustomUser()
+    def test_signup_model(self) -> None:
+        new_user_test: CustomUser = CustomUser()
         new_user_test.username = "usernametest"
         new_user_test.email = "usertest@usermail.com"
         new_user_test.first_name = "first_name_test"
@@ -53,31 +53,43 @@ class SignupAccountsTests(TestCase):
 
         self.assertEqual(get_user_model().objects.all().count(), 1)
         self.assertEqual(
-            get_user_model().objects.all()[0].username, new_user_test.username
-        )
-        self.assertEqual(get_user_model().objects.all()[0].email, new_user_test.email)
-        self.assertEqual(
-            get_user_model().objects.all()[0].first_name, new_user_test.first_name
+            get_user_model().objects.all()[0].username,  # type: ignore
+            new_user_test.username,
         )
         self.assertEqual(
-            get_user_model().objects.all()[0].last_name, new_user_test.last_name
-        )
-        self.assertEqual(get_user_model().objects.all()[0].age, new_user_test.age)
-        self.assertEqual(
-            get_user_model().objects.all()[0].phone_number, new_user_test.phone_number
+            get_user_model().objects.all()[0].email,  # type: ignore
+            new_user_test.email,
         )
         self.assertEqual(
-            get_user_model().objects.all()[0].address, new_user_test.address
+            get_user_model().objects.all()[0].first_name,  # type: ignore
+            new_user_test.first_name,
         )
         self.assertEqual(
-            get_user_model().objects.all()[0].company, new_user_test.company
+            get_user_model().objects.all()[0].last_name,  # type: ignore
+            new_user_test.last_name,
         )
         self.assertEqual(
-            get_user_model().objects.all()[0].job_position, new_user_test.job_position
+            get_user_model().objects.all()[0].age,  # type: ignore
+            new_user_test.age,
+        )
+        self.assertEqual(
+            get_user_model().objects.all()[0].phone_number,  # type: ignore
+            new_user_test.phone_number,
+        )
+        self.assertEqual(
+            get_user_model().objects.all()[0].address,  # type: ignore
+            new_user_test.address,
+        )
+        self.assertEqual(
+            get_user_model().objects.all()[0].company,  # type: ignore
+            new_user_test.company,
+        )
+        self.assertEqual(
+            get_user_model().objects.all()[0].job_position,  # type: ignore
+            new_user_test.job_position,
         )
 
-    def test_signup_valid_form(self):
-
+    def test_signup_valid_form(self) -> None:
         form_data = {
             "username": "piwero",
             "password1": "Thisisacontrasena!",
@@ -96,8 +108,7 @@ class SignupAccountsTests(TestCase):
 
         self.assertTrue(form.is_valid())
 
-    def test_signup_invalid_form(self):
-
+    def test_signup_invalid_form(self) -> None:
         form_data = {
             "username": "piwero",
             "password1": "Thisisacontrasena!",
@@ -118,8 +129,8 @@ class SignupAccountsTests(TestCase):
 
 
 class EditProfileTests(TestCase):
-    def setUp(self):
-        self.user = get_user_model().objects.create_user(
+    def setUp(self) -> None:
+        self.user = get_user_model().objects.create_user(  # type: ignore
             username="test", password="12test12", email="test@example.com"
         )
         self.user.save()
@@ -127,23 +138,22 @@ class EditProfileTests(TestCase):
 
         self.response = self.client.get("/accounts/edit-profile")
 
-    def test_edit_profile_status_code(self):
-
+    def test_edit_profile_status_code(self) -> None:
         self.assertEqual(self.response.status_code, 200)
 
-    def test_edit_profile_template(self):
+    def test_edit_profile_template(self) -> None:
         self.assertTemplateUsed(self.response, "edit-profile.html")
 
-    def test_edit_profile_contains_html(self):
+    def test_edit_profile_contains_html(self) -> None:
         self.assertContains(self.response, "Edit Profile Page")
 
-    def test_edit_profile_no_contains_html(self):
+    def test_edit_profile_no_contains_html(self) -> None:
         self.assertNotContains(self.response, "Sign up")
 
 
 class EditProfileFormTests(TestCase):
-    def setUp(self):
-        self.user = get_user_model().objects.create_user(
+    def setUp(self) -> None:
+        self.user = get_user_model().objects.create_user(  # type: ignore
             username="testuser", password="12test12", email="test@example.com"
         )
         self.user.save()
@@ -161,11 +171,10 @@ class EditProfileFormTests(TestCase):
         }
         self.response = self.client.post("/accounts/edit-profile", form_data)
 
-    def test_edit_profile_form_status_code(self):
-
+    def test_edit_profile_form_status_code(self) -> None:
         self.assertEqual(self.response.status_code, 302)
 
-    def test_edit_profile_modify_data(self):
+    def test_edit_profile_modify_data(self) -> None:
         self.response = self.client.get("/")
         self.assertContains(self.response, "piwerotest")
         self.assertNotContains(self.response, "testuser")

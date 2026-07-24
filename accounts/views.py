@@ -1,3 +1,5 @@
+from django.contrib.auth.models import AnonymousUser
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import (
     redirect,
     render,
@@ -18,30 +20,19 @@ class SignUpView(CreateView):
 
 
 class EditProfileView(CreateView):
-
     form_class = CustomUserChangeForm
     success_url = reverse_lazy("home")
     template_name = "edit-profile.html"
 
-    def form_valid(self, form, request):
-        form = CustomUserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
 
-            return redirect("home")
+def edit_profile(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+    if not isinstance(request.user, AnonymousUser):
+        if request.method == "POST":
+            form = CustomUserChangeForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect("home")
         else:
             form = CustomUserChangeForm(instance=request.user)
-            return render(request, "edit-profile.html", {"form": form})
-
-
-def edit_profile(request):
-    if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-
-            return redirect("home")
-    else:
-        form = CustomUserChangeForm(instance=request.user)
-
-    return render(request, "edit-profile.html", {"form": form})
+        return render(request, "edit-profile.html", {"form": form})
+    return render(request, "edit-profile.html")

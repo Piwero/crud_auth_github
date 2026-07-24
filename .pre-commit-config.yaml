@@ -1,18 +1,16 @@
 repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.0
+    hooks:
+      - id: ruff-format
+        name: "Ruff: Format code"
+      - id: ruff
+        name: "Ruff: Lint code"
+        args: ["--fix"]
   - repo: local
     hooks:
-      - id: black
-        name: "Black: Checking code style"
-        entry: black
-        language: system
-        types: [python]
-      - id: ruff
-        name: "Ruff: Checking code quality"
-        entry: ruff check --force-exclude
-        language: system
-        types: [python]
-      - id: isort
-        name: "Isort: Checking imports sorting"
-        entry: isort
+      - id: ty
+        name: "Ty: Type checking"
+        entry: .venv/bin/ty check
         language: system
         types: [python]

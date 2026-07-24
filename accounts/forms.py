@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.forms import (
     ReadOnlyPasswordHashField,
     UserChangeForm,
@@ -24,15 +26,13 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
-    def __init__(self, *args, **kwargs):
-        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
         del self.fields["password"]
 
-    password = ReadOnlyPasswordHashField(
-        label=("Password"),
-        help_text=(
-            "Raw passwords are not stored, so there is no way to see this field."
-        ),
+    password: ReadOnlyPasswordHashField = ReadOnlyPasswordHashField(
+        label="Password",
+        help_text="Raw passwords are not stored, so there is no way to see this field.",
     )
 
     class Meta:

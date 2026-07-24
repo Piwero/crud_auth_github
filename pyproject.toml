@@ -1,50 +1,45 @@
-[tool.poetry]
+[project]
 name = "crud-auth-github"
 version = "2"
 description = ""
-authors = ["piwero <piwero@gmail.com>"]
+authors = [{name = "piwero", email = "piwero@gmail.com"}]
 readme = "README.md"
-package-mode = false
+requires-python = ">=3.12"
+dependencies = [
+    "asgiref>=3.12.1",
+    "crispy-bootstrap4>=2026.2",
+    "Django>=6.0.7",
+    "django-allauth[socialaccount]>=65.18.0",
+    "django-crispy-forms>=2.6",
+    "dj-database-url>=3.1.2",
+    "gunicorn>=26.0.0",
+    "psycopg2-binary>=2.9.12",
+    "python-decouple>=3.8",
+    "sqlparse>=0.5.5",
+    "whitenoise>=6.12.0",
+]
 
-
-[tool.poetry.dependencies]
-asgiref = "^3.12.1"
-crispy-bootstrap4 = "^2026.2"
-Django = "^6.0.7"
-django-allauth = { version = "^65.18.0", extras = ["socialaccount"] }
-django-crispy-forms = "^2.6"
-dj-database-url = "^3.1.2"
-gunicorn = "^26.0.0"
-psycopg2-binary = "^2.9.12"
-python = "^3.12"
-python-decouple = "^3.8"
-sqlparse = "^0.5.5"
-whitenoise = "^6.12.0"
-
-[tool.poetry.group.dev.dependencies]
-black = "^26.5.1"
-django-debug-toolbar = "^7.0.0"
-django-extensions = "^4.1"
-mypy = "^2.3.0"
-ipdb = "^0.13.13"
-isort = "^8.0.1"
-pre-commit = "^4.6.1"
-pytest = "^9.1.1"
-pytest-cov = "^7.1.0"
-pytest-django = "^4.12.0"
-pytest-xdist = "^3.8.0"
-ruff = "^0.16.0"
-
-[tool.isort]
-profile = "black"
-line_length = 88
-skip_glob = ["**/migrations/*", "*/settings.py"]
+[project.optional-dependencies]
+dev = [
+    "django-debug-toolbar>=7.0.0",
+    "django-extensions>=4.1",
+    "ty>=0.3.0",
+    "ipdb>=0.13.13",
+    "pre-commit>=4.6.1",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-django>=4.12.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.16.0",
+]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "core.settings.test_settings"
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 
 [tool.ruff]
+line-length = 88
+target-version = "py312"
 exclude = [
     ".bzr",
     ".direnv",
@@ -67,15 +62,8 @@ exclude = [
     "node_modules",
     "venv",
     "**/migrations",
-    "settings.py"
-	]
-line-length = 88
-target-version = "py312"
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
 ignore = ["E501"]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
