@@ -1,7 +1,9 @@
-from django.test import SimpleTestCase
+from django.test import TestCase
 
 
-class HomepageTests(SimpleTestCase):
+# django-allauth >= 65 resolves the configured social app from the database when
+# rendering {% provider_login_url %}, so the homepage needs DB access.
+class HomepageTests(TestCase):
     def setUp(self):
         self.response = self.client.get("/")
 

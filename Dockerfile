@@ -1,7 +1,7 @@
 ARG PYTHON_VERSION=3.12-slim-bookworm
 
 # define an alias for the specific python version used in this file.
-FROM python:${PYTHON_VERSION} as python
+FROM python:${PYTHON_VERSION} AS python
 LABEL authors="piwero"
 
 ARG APP_HOME=/app
@@ -17,7 +17,7 @@ ENV PYTHONUNBUFFERED=1 \
     \
     # poetry
     # https://python-poetry.org/docs/configuration/#using-environment-variables
-    POETRY_VERSION=1.5.1 \
+    POETRY_VERSION=2.4.1 \
     POETRY_HOME="/opt/poetry" \
     POETRY_NO_INTERACTION=1
 
@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/${POETRY_VERSION}/install-poetry.py | python - --version ${POETRY_VERSION}
+RUN curl -sSL https://install.python-poetry.org | python - --version ${POETRY_VERSION}
 
 WORKDIR ${APP_HOME}
 
