@@ -9,12 +9,11 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   routes:
-    - match: Host(`crud.octovine.com`) # Update this with your own domain
+    - match: Host(`crud.your-domain.com`) # Update this with your own domain
       kind: Rule
-      middlewares: [ ]
+      middlewares: []
       services:
         - kind: Service
           name: crud-auth-github-service
           namespace: crud-app
           port: 8000
-
